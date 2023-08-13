@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Handle Form</title>
+        <style>
+            .leaveSpace {
+                margin:5px 0px;   
+            }
+            .red {
+                color:red;
+            }
+        </style>
+        <script>
+            window.addEventListener("load", start, false);
+
+            let fnameInput;
+            let lnameInput;
+
+            let fnameSpan;
+            let lnameSpan;
+
+            let formObj;
+
+            function start() {
+                fnameInput = document.getElementById('fname');
+                lnameInput = document.getElementById('lname');
+
+                fnameSpan = document.getElementById('fnameError');
+                lnameSpan = document.getElementById('lnameError');
+
+                formObj = document.getElementById('myForm');
+
+                fnameInput.addEventListener("blur", handleFnameError, false);
+                lnameInput.addEventListener("blur", handleLnameError, false);
+
+                formObj.addEventListener("submit", checkSubmit, false);
+
+            }
+
+            /*function checkEmpty(e) {
+                if (e.target.getAttribute("id") == "fname") {
+                    handleFnameError();
+                }
+
+                if (e.target.getAttribute("id") == "lname") {
+                    handleLnameError();
+                }
+
+            }*/
+
+            function checkSubmit() {
+                
+                let r1 = handleFnameError();
+                let r2 = handleLnameError();
+                if(r1 && r2) formObj.submit();
+                else event.preventDefault();
+            }
+
+            function handleFnameError() {
+                if (fnameInput.value == "") {
+                    fnameSpan.innerHTML = "First Name is Mandatory!";
+                    return false;
+                } else {
+                    fnameSpan.innerHTML = "";
+                    return true;
+                }
+            }
+
+            function handleLnameError() {
+                if (fnameInput.value == "") {
+                    lnameSpan.innerHTML = "Last Name is Mandatory!";
+                    return false;
+                } else
+                    lnameSpan.innerHTML = "";
+                {
+                    return true;
+                }
+            }
+        </script>
+
+    </head>
+    <body>
+        <form id="myForm" action="script.php">
+            <div class="leaveSpace">First Name: <input type="text" placeholder="Your First Name" id="fname" value="">*<span id="fnameError" class="red"></span></div>
+            <div class="leaveSpace">Last Name: <input type="text" placeholder="Your Last Name" id="lname" value="">*<span id="lnameError" class="red"></span></div>
+            <input type="submit" value="Submit" style="width:100px;font-size:xx-large;">
+            <input type="reset" value="Reset" style="width:100px;font-size:xx-large;">    
+        </form>
+    </body>
+</html>
